@@ -5,7 +5,20 @@
 #   offset 8  : value
 #   offset 16 : next
 sum:
-    retq
+    xorq %rax, %rax # %rax = total = 0
+    jmp .test # jump to the test block of the while loop
+
+.body:
+    addq 8(%rdi), %rax # %rax = total + ptr->value
+    movq 16(%rdi), %rdi # %rdi = ptr->next
+
+.test:
+    testq %rdi, %rdi # test ptr & ptr
+    je .done # if ptr == NULL, end the loop and jump to the .done block
+    jmp .body # go to start of loop
+
+.done:
+    ret # return %rax = total
 
 
 # sum of the elements of a linkedlist in C
