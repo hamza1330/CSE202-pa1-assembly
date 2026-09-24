@@ -19,7 +19,7 @@ mult7div8:
   testb %al, %al # test mult
   jl .else # jump to else if mult < 0
   movb $1, (%rsi) # *overflow = 1
-  jmp.end
+  jmp .end
 
 .else:
   movb $0, (%rsi) # *overflow = 0
